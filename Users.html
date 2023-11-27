@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <!-- <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'> -->
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        main {
+            background: #faf4f4;
+        }
+        
+        .input-group {
+            width: 50%;
+            height: 80%;
+            margin-left: 20%;
+        }
+        
+        .form-box h1 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            margin-left: 20%;
+            color: #3C91E6;
+            position: relative;
+        }
+        
+        .form-box h1::after {
+            content: '';
+            width: 60%;
+            height: 4px;
+            border-radius: 3px;
+            background: #3C91E6;
+            position: absolute;
+            bottom: -12px;
+            right: 8%;
+            transform: translateX(-50%);
+        }
+        
+        .input-field {
+            background: #eaeaee;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            max-height: 65px;
+            transition: max-height 0.5s;
+            overflow: hidden;
+        }
+        
+        input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            padding: 16px 12px;
+        }
+        
+        .addbtn {
+            /* flex-basis: 48%; */
+            background: rgb(33, 209, 33);
+            color: #fff;
+            font-size: 18px;
+            height: 40px;
+            border-radius: 5px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            margin-left: 30%;
+            cursor: pointer;
+            padding: 5px;
+            transition: background 1s;
+        }
+    </style>
+
+    <title>Users</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <span class="text">Admin Panel</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="AdminPanelt.html">
+                    <!-- <i class='bx bxs-dashboard'></i> -->
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="Stock.html">
+                    <!-- <i class='bx bxs-shopping-bag-alt'></i> -->
+                    <span class="text">Stocks</span>
+                </a>
+            </li>
+            <li>
+                <a href="Users.html">
+                    <!-- <i class='bx bxs-doughnut-chart'></i> -->
+                    <span class="text">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-message-dots'></i> -->
+                    <span class="text">Add Admin</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="#">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Team</span>
+                </a>
+            </li> -->
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-cog'></i> -->
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="LogIn1.html" class="logout">
+                    <!-- <i class='bx bxs-log-out-circle'></i> -->
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <!-- <i class='bx bx-menu'></i> -->
+
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" id="UsermedicineName" placeholder="Search...">
+                    <button type="submit" onclick="searchMedicine()" class="search-btn"></button>
+                </div>
+            </form>
+            <h3 id="Name"></h3>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Users</h1>
+
+                </div>
+
+            </div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+
+                        <!-- <i class='bx bx-search'></i> -->
+                        <!-- <i class='bx bx-filter'></i> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr class="stock-tr">
+                                <th style="font-size: 20px;">Serial No.</th>
+                                <th style="font-size: 20px;">User Name</th>
+                                <th style="font-size: 20px;">Email</th>
+                                <th style="font-size: 20px;">Phone</th>
+                                <th style="font-size: 20px;">Delete User</th>
+                            </tr>
+                        </thead>
+                        <tbody id="root">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+
+    <script>
+        class Node {
+            constructor(newUsers) {
+                this.newUsers = newUsers;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            append(newUsers) {
+                const newNode = new Node(newUsers);
+
+                if (!this.head) {
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+            }
+
+            findEmail(email) {
+                let current = this.head;
+                while (current) {
+                    if (current.newUsers.newUserEmail === email) {
+                        return true;
+                    }
+                    current = current.next;
+                }
+                return false;
+            }
+        }
+
+        function displayUserData() {
+            const userListContainer = document.getElementById("root");
+            const userName = document.getElementById('Name');
+
+            const storedData = localStorage.getItem('userList');
+            const userLinkedList = storedData ? JSON.parse(storedData) : new LinkedList();
+
+            let current = userLinkedList.head;
+            let i = 1; // Initialize a counter for serial number
+
+            while (current) {
+                const userData = current.newUsers;
+                userListContainer.innerHTML += `
+            <tr>
+                <td>${i}</td>
+                <td>${userData.newUsername}</td>
+                <td>${userData.newUserEmail}</td>
+                <td>${userData.newNumber}</td>
+                <td><button class="dbtn" onclick="deleteUser('${userData.newUserEmail}')">Delete</button></td>
+            </tr>
+        `;
+                current = current.next;
+                i++;
+            }
+            userName.innerHTML += `<h3>Saiful</h3>`;
+        }
+
+        function deleteUser(email) {
+            const storedData = localStorage.getItem('userList');
+            const userLinkedList = storedData ? JSON.parse(storedData) : new LinkedList();
+
+            let current = userLinkedList.head;
+            let prev = null;
+
+            // Find the node with the specified email
+            while (current) {
+                if (current.newUsers.newUserEmail === email) {
+                    // Remove the node from the linked list
+                    if (prev) {
+                        prev.next = current.next;
+                    } else {
+                        userLinkedList.head = current.next;
+                    }
+
+                    // Save updated data to localStorage
+                    localStorage.setItem('userList', JSON.stringify(userLinkedList));
+
+                    // Refresh the displayed user data
+                    location.reload();
+                    displayUserData();
+                    return;
+                }
+
+                prev = current;
+                current = current.next;
+            }
+        }
+
+        // Load existing data from localStorage or create a new LinkedList
+        const storedData = localStorage.getItem('userList');
+        const userLinkedList = storedData ? JSON.parse(storedData) : new LinkedList();
+
+        // Update displayed user data on page load
+        displayUserData();
+    </script>
+</body>
+
+</html>

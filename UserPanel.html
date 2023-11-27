@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        main {
+            background: #faf4f4;
+        }
+        
+        .input-group {
+            width: 50%;
+            height: 80%;
+            margin-left: 20%;
+        }
+        
+        .form-box h1 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            margin-left: 20%;
+            color: #3C91E6;
+            position: relative;
+        }
+        
+        .form-box h1::after {
+            content: '';
+            width: 60%;
+            height: 4px;
+            border-radius: 3px;
+            background: #3C91E6;
+            position: absolute;
+            bottom: -12px;
+            right: 8%;
+            transform: translateX(-50%);
+        }
+        
+        .input-field {
+            background: #eaeaee;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            max-height: 65px;
+            transition: max-height 0.5s;
+            overflow: hidden;
+        }
+        
+        input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            padding: 16px 12px;
+        }
+        
+        .addbtn {
+            /* flex-basis: 48%; */
+            background: #1ec963;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 30px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 25%;
+            cursor: pointer;
+            padding: 10px 60PX;
+            transition: background 1s;
+        }
+        
+        .popup {
+            width: 500px;
+            border-radius: 10px;
+            background: #444734;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translateX(-50%, -50%);
+            padding: 50px;
+            color: #333;
+            visibility: hidden;
+            transition: transfrom 0.4s;
+        }
+        
+        .open-popup {
+            visibility: visible;
+        }
+        
+        .addtocardbtn {
+            /* flex-basis: 48%; */
+            background: #07a855;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 20%;
+            cursor: pointer;
+            padding: 10px 30PX;
+            transition: background 1s;
+        }
+        
+        .orderbtn {
+            /* flex-basis: 48%; */
+            background: #12ffc8;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 10%;
+            cursor: pointer;
+            padding: 10px 30PX;
+            transition: background 1s;
+        }
+    </style>
+
+    <title>UserPanel</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <span class="text">User Panel</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="UserPanel.html">
+                    <!-- <i class='bx bxs-dashboard'></i> -->
+                    <span class="text">Home Page</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="Cart.html">
+                    <!-- <i class='bx bxs-doughnut-chart'></i> -->
+                    <span class="text" onclick="showCartForUser() ">Cart</span>
+                </a>
+            </li>
+
+            <!-- <li>
+                <a href="#">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Team</span>
+                </a>
+            </li> -->
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-cog'></i> -->
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="LogIn1.html" class="logout">
+                    <!-- <i class='bx bxs-log-out-circle'></i> -->
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <!-- <i class='bx bx-menu'></i> -->
+            <a href="#" class="nav-link">Search Medicine</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" id="UsermedicineName" placeholder="Search...">
+                    <button type="submit" onclick="searchMedicine()" class="search-btn"></button>
+                </div>
+            </form>
+            <h3 id="Name"></h3>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Order Medicine</h1>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+
+                        <!-- <i class='bx bx-search'></i> -->
+                        <!-- <i class='bx bx-filter'></i> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr class="stock-tr">
+                                <th style="font-size: 20px;">Serial No.</th>
+                                <th style="font-size: 20px;">Medicine Name</th>
+                                <th style="font-size: 20px;">Price</th>
+                                <th style="font-size: 20px;">In Stock</th>
+                                <th style="font-size: 20px;">Add to Cart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="root">
+                            <!-- <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status process">Process</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <div class="popup" id="Popup">
+        <div class="container">
+            <div class="form-box">
+                <form>
+                    <div class="input-group">
+                        <h1>Fill the Details</h1>
+                        <h2 id="productNamee"></h2>
+
+                        <div>
+                            <!-- <label for="medicineName">Medicine Name:</label> -->
+                            <input class="input-field" type="text" id="customerName" placeholder="Your Name">
+                        </div>
+
+                        <div>
+                            <!-- <label for="medicinePrice">Price:</label> -->
+                            <input class="input-field" type="number" id="medicineUserQuantity" placeholder="Quantity">
+                        </div>
+
+                        <div>
+                            <!-- <label for="medicineQuantity">Quantity:</label> -->
+                            <input class="input-field" type="number" id="phone" placeholder="Phone">
+                        </div>
+                        <div>
+                            <!-- <label for="medicineName">Medicine Name:</label> -->
+                            <input class="input-field" type="text" id="address" placeholder="Your Address">
+                        </div>
+                        <button class="addbtn" onclick="addOrder()">Confirm Order</button>
+
+                        <!-- <button class="addbtn" onclick="deleteMedicine()">Delete Medicine</button>
+                            <button class="addbtn" onclick="searchMedicine()">Search Medicine</button> -->
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- <button class="orderbtn" onclick="addToCart()" type="submit">Add to Cart</button> -->
+
+    </div>
+    <script src="UserPanel.js">
+    </script>
+    <!-- <script src="UserPanel.js"></script> -->
+    <!-- <script>
+        let id = "no";
+        //localStorage.clear();
+        selectData();
+
+        function manageData() {
+            document.getElementById('msg').innerHTML = "";
+            let name = document.getElementById('medicineName').value;
+            if (name == '') {
+                document.getElementById('msg').innerHTML = 'Please enter your name';
+            } else {
+                console.log(id);
+                if (id == 'no') {
+                    let arr = getCrudData();
+                    if (arr == null) {
+                        let data = [name];
+                        setCrudData(data);
+                    } else {
+                        arr.push(name);
+                        setCrudData(arr);
+                    }
+                    document.getElementById('msg').innerHTML = 'Data added';
+                } else {
+                    let arr = getCrudData();
+                    arr[id] = name;
+                    setCrudData(arr);
+                    document.getElementById('msg').innerHTML = 'Data updated';
+                }
+                document.getElementById('name').value = '';
+                selectData();
+            }
+        }
+
+        function selectData() {
+
+
+            html = html + `<tr><td>${}</td><td>${Saiful}</td><td><a href="javascript:void(0)" onclick="editData(${})">Edit</a>&nbsp;<a href="javascript:void(0)" onclick="deleteData(${})">Delete</a></td></tr>`;
+
+            document.getElementById('root').innerHTML = html;
+
+        }
+        }
+
+        function editData(rid) {
+            id = rid;
+            let arr = getCrudData();
+            document.getElementById('name').value = arr[rid];
+        }
+
+        function deleteData(rid) {
+            let arr = getCrudData();
+            arr.splice(rid, 1);
+            setCrudData(arr);
+            selectData();
+        }
+
+        function getCrudData() {
+            let arr = JSON.parse(localStorage.getItem('crud'));
+            return arr;
+        }
+
+        function setCrudData(arr) {
+            localStorage.setItem('crud', JSON.stringify(arr));
+        }
+    </script> -->
+    <script>
+        let popup = document.getElementById("Popup");
+
+        function openPopup() {
+            popup.classList.add("open-popup");
+
+        }
+    </script>
+</body>
+
+</html>
