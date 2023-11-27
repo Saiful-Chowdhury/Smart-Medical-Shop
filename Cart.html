@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        main {
+            background: #faf4f4;
+        }
+        
+        .input-group {
+            width: 50%;
+            height: 80%;
+            margin-left: 20%;
+        }
+        
+        .form-box h1 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            margin-left: 20%;
+            color: #3C91E6;
+            position: relative;
+        }
+        
+        .form-box h1::after {
+            content: '';
+            width: 60%;
+            height: 4px;
+            border-radius: 3px;
+            background: #3C91E6;
+            position: absolute;
+            bottom: -12px;
+            right: 8%;
+            transform: translateX(-50%);
+        }
+        
+        .input-field {
+            background: #eaeaee;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            max-height: 65px;
+            transition: max-height 0.5s;
+            overflow: hidden;
+        }
+        
+        input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            padding: 16px 12px;
+        }
+        
+        .addbtn {
+            /* flex-basis: 48%; */
+            background: #1ec963;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 30px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 25%;
+            cursor: pointer;
+            padding: 10px 60PX;
+            transition: background 1s;
+        }
+        
+        .popup {
+            width: 500px;
+            border-radius: 10px;
+            background: #444734;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translateX(-50%, -50%);
+            padding: 50px;
+            color: #333;
+            visibility: hidden;
+            transition: transfrom 0.4s;
+        }
+        
+        .open-popup {
+            visibility: visible;
+        }
+        
+        .addtocardbtn {
+            /* flex-basis: 48%; */
+            background: #07a855;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 20%;
+            cursor: pointer;
+            padding: 10px 30PX;
+            transition: background 1s;
+        }
+        
+        .deletebtn {
+            /* flex-basis: 48%; */
+            background: rgb(240, 0, 0);
+            color: #fff;
+            font-size: 12px;
+            border-radius: 10px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 20%;
+            cursor: pointer;
+            padding: 8px 15PX;
+            transition: background 1s;
+        }
+        
+        .increasebtn {
+            /* flex-basis: 48%; */
+            background: rgb(0, 92, 240);
+            color: #fff;
+            font-size: 14px;
+            border-radius: 10px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 20%;
+            cursor: pointer;
+            padding: 8px 15PX;
+            transition: background 1s;
+        }
+        
+        .orderbtn {
+            /* flex-basis: 48%; */
+            background: #12ffc8;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 10%;
+            cursor: pointer;
+            padding: 10px 30PX;
+            transition: background 1s;
+        }
+    </style>
+
+    <title>UserPanel</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <span class="text">User Panel</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="UserPanel.html">
+                    <!-- <i class='bx bxs-dashboard'></i> -->
+                    <span class="text">Home Page</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="Cart.html">
+                    <!-- <i class='bx bxs-doughnut-chart'></i> -->
+                    <span class="text">Cart</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-group'></i> -->
+                    <span class="text">Team</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-cog'></i> -->
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="LogIn1.html" class="logout">
+                    <!-- <i class='bx bxs-log-out-circle'></i> -->
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <!-- <i class='bx bx-menu'></i> -->
+            <a href="#" class="nav-link">Search Medicine</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" id="UsermedicineName" placeholder="Search...">
+                    <button type="submit" onclick="searchMedicine()" class="search-btn"></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <!-- <i class='bx bxs-bell'></i> -->
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="img/people.png">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Order Medicine</h1>
+                    <!-- <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li>Icon</li>
+                        <li>
+                            <a class="active" href="#">Home</a>
+                        </li>
+                    </ul> -->
+                </div>
+
+            </div>
+            <!-- <div class="container">
+                <div class="form-box">
+                    <form>
+                        <div class="input-group">
+                            <h1>Add New Medicine</h1>
+                            <div>
+                                <input class="input-field" type="text" id="medicineName" placeholder="Medicine Name">
+                            </div>
+                            <div>
+                                <input class="input-field" type="number" id="medicinePrice" placeholder="Price">
+                            </div>
+                            <div>
+                                <input class="input-field" type="number" id="medicineQuantity" placeholder="Quantity">
+                            </div>
+                            <button class="addbtn" onclick="addMedicine()">Add Medicine</button>
+                            <button class="addbtn" onclick="searchMedicine()">Search Medicine</button>
+                        </div>
+                    </form>
+                </div> -->
+
+            <!-- </div> -->
+            <div id="inventory"></div>
+
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+
+                        <!-- <i class='bx bx-search'></i> -->
+                        <!-- <i class='bx bx-filter'></i> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr class="stock-tr">
+                                <th style="font-size: 20px;">Serial No.</th>
+                                <th style="font-size: 20px;">Medicine Name</th>
+                                <th style="font-size: 20px;">Quantity</th>
+                                <th style="font-size: 20px;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="root">
+                            <!-- <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status process">Process</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <script>
+        // Cart and Queue implementation
+        const cartItemarr = JSON.parse(localStorage.getItem('cart')) || [];
+
+
+        function showCartForUser() {
+            const inventoryDiv = document.getElementById('root');
+            for (let i = 0; i < cartItemarr.length; i++) {
+                const currentItem = cartItemarr[i];
+                inventoryDiv.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${currentItem.productName}</td>
+            <td>${currentItem.quantity}</td>
+            <td>${currentItem.price}</td>
+          </tr>
+        `;
+            }
+        }
+        showCartForUser();
+
+        // function deleteFromCart(index) {
+        //     cartItemarr.splice(index, 1);
+        //     saveCartToLocalStorage();
+        //     showCartForUser();
+        // }
+
+        // function increaseQuantity(index) {
+        //     var a = cartItemarr[index].quantity++;
+        //     const newPrice = prompt('Enter the Quantity:');
+        //     if (newPrice !== null && !isNaN(newPrice) && newPrice !== "") {
+        //         cartItemarr[index].quantity = parseFloat(newPrice);
+        //         saveCartToLocalStorage();
+        //         showCartForUser();
+        //     }
+
+        // }
+
+        // function changePrice(index) {
+
+        // }
+
+        // function saveCartToLocalStorage() {
+        //     localStorage.setItem('cart', JSON.stringify(cartItemarr));
+        // }
+
+        // // Call the function to display the cart
+        // showCartForUser();
+
+        // function confirmOrder() {
+        //     if (cart.length === 0) {
+        //         alert('Your cart is empty. Add some items before confirming the order.');
+        //         return;
+        //     }
+
+        //     const order = [...cart];
+        //     orderQueue.push(order);
+        //     localStorage.setItem('order', JSON.stringify(orderQueue));
+        //     // Clear the cart
+        //     cart.length = 0;
+        //     updateCart();
+
+        //     alert('Order confirmed and added to the queue!');
+        //     console.log('Order Queue:', orderQueue);
+        // }
+    </script>
+
+</body>
+
+</html>

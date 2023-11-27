@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Login</h1>
+            <form id="login-form">
+                <div class="input-group">
+                    <div class="input-field" id="nameField" style="height: 0px;">
+                        <!-- <label for="email">Email:</label> -->
+
+                        <input type="name" name="name" placeholder="Name" />
+                    </div>
+
+                    <div class="input-field">
+                        <!-- <label for="email">Email:</label> -->
+
+                        <input type="email" name="useremail" placeholder="Email" />
+                    </div>
+
+                    <div class="input-field">
+                        <!-- <label for="password">Password:</label> -->
+                        <input type="password" name="password" placeholder="Password" />
+
+                    </div>
+                    <div class="message">
+                        <p style="color: darkorchid;">Register if you are new.</p>
+                    </div>
+
+                </div>
+
+                <div class="btn-field" id="btnField" style="margin-top: -50px;">
+
+                    <button type="button" id="loginBtn">Login</button>
+                    <p>OR</p>
+                    <button type="button" id="registerBtn" class="disable">Register</button>
+                </div>
+
+            </form>
+        </div>
+        <br>
+        <a href="registration.html">Register</a>
+    </div>
+    <script>
+        let loginBtn = document.getElementById("loginBtn");
+        let registerBtn = document.getElementById("registerBtn");
+        let nameField = document.getElementById("nameField");
+        let title = document.getElementById("title");
+        let btnField = document.getElementById("btnField");
+
+        loginBtn.onclick = function() {
+            nameField.style.maxHeight = "0";
+            title.innerHTML = "Login";
+            btnField.style.marginTop = "-50px"
+            registerBtn.classList.add("disable");
+            loginBtn.classList.remove("disable");
+        }
+        registerBtn.onclick = function() {
+            nameField.style.maxHeight = "60px";
+            btnField.style.marginTop = "5px"
+            title.innerHTML = "Register";
+            nameField.style.height = "50px";
+            window.location.href = "registration.html";
+            registerBtn.classList.remove("disable");
+            loginBtn.classList.add("disable");
+
+
+        }
+
+
+        const loginForm = document.getElementById("login-form");
+
+        // Login Function
+        function handleLogin() {
+            const useremail = loginForm.useremail.value;
+            const password = loginForm.password.value;
+
+            if (useremail && password) {
+                const authenticated = authentication(useremail, password);
+                if (useremail === "admin@gmail.com" && password === "12345") {
+                    window.location.href = "AdminPanelt.html";
+                } else if (authenticated) {
+                    window.location.href = "UserPanel.html";
+                } else {
+                    alert("Wrong username or password");
+                }
+            } else {
+                alert("Please enter both username and password");
+            }
+        }
+
+        // Login Form
+        if (loginForm) {
+            // Change from submit event to button click event
+            const loginBtn = document.getElementById("loginBtn");
+            if (loginBtn) {
+                loginBtn.addEventListener("click", handleLogin);
+            } else {
+                alert("Login button not found");
+            }
+        } else {
+            alert("Login form not found");
+        }
+
+        // Take data from JSON File And Authenticating
+        function authentication(useremail, password) {
+            const storedData = localStorage.getItem('userList');
+            const userLinkedList = storedData ? JSON.parse(storedData) : new LinkedList();
+
+            let current = userLinkedList.head;
+
+            while (current) {
+                const {
+                    newUserEmail,
+                    newPassword
+                } = current.newUsers;
+
+                if (newUserEmail === useremail && newPassword === password) {
+                    return true; // Authentication successful
+                }
+
+                current = current.next;
+            }
+
+            return false; // Authentication failed
+        }
+    </script>
+</body>
+
+</html>

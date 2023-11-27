@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Registration</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Registration</h1>
+            <form id="registration-form">
+                <div class="input-group">
+                    <div class="input-field" id="nameField">
+                        <!-- <label for="email">Email:</label> -->
+
+                        <input type="name" name="UserName" id="UserName" placeholder="Name" />
+                    </div>
+
+                    <div class="input-field">
+                        <!-- <label for="email">Email:</label> -->
+
+                        <input type="email" name="UserEmail" id="UserEmail" placeholder="Email" />
+                    </div>
+
+                    <div class="input-field">
+                        <!-- <label for="password">Password:</label> -->
+                        <input type="number" name="new-password" id="Phone" placeholder="Mobile Number" />
+
+                    </div>
+                    <div class="input-field">
+                        <!-- <label for="password">Password:</label> -->
+                        <input type="password" name="new-password" id="new-password" placeholder="Password" />
+
+                    </div>
+
+                </div>
+
+                <div class="btn-field" id="btnField">
+
+                    <button type="button" id="registerBtn" onclick="handleRegistration()">Registration</button>
+                    <p style="color: darkorchid;"><b>OR</b></p>
+                    <button type="button" id="loginPageBtn" class="disable">Go to Login Page</button>
+                </div>
+
+            </form>
+        </div>
+        <br>
+        <a href="LogIn1.html">Login</a>
+    </div>
+    <script>
+        let loginPageBtn = document.getElementById("loginPageBtn");
+
+        loginPageBtn.onclick = function() {
+            window.location.href = "LogIn1.html";
+        }
+
+        // -----------------------------------------------------
+        class Node {
+            constructor(newUsers) {
+                this.newUsers = newUsers;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            append(newUsers) {
+                const newNode = new Node(newUsers);
+
+                if (!this.head) {
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+            }
+
+            findEmail(email) {
+                let current = this.head;
+                while (current) {
+                    if (current.newUsers.newUserEmail === email) {
+                        return true;
+                    }
+                    current = current.next;
+                }
+                return false;
+            }
+
+            toJSON() {
+                const result = {
+                    head: null
+                };
+                let current = this.head;
+                let resultCurrent = result.head;
+
+                while (current) {
+                    const newNode = {
+                        newUsers: current.newUsers,
+                        next: null
+                    };
+
+                    if (!result.head) {
+                        result.head = newNode;
+                        resultCurrent = result.head;
+                    } else {
+                        resultCurrent.next = newNode;
+                        resultCurrent = resultCurrent.next;
+                    }
+
+                    current = current.next;
+                }
+
+                return result;
+            }
+
+            static fromJSON(data) {
+                const list = new LinkedList();
+                let current = data.head;
+
+                while (current) {
+                    list.append(current.newUsers);
+                    current = current.next;
+                }
+
+                return list;
+            }
+        }
+
+        // Load existing data from localStorage or create a new LinkedList
+        const storedData = localStorage.getItem('userList');
+        const userLinkedList = storedData ? LinkedList.fromJSON(JSON.parse(storedData)) : new LinkedList();
+
+        function handleRegistration() {
+            const registerForm = document.getElementById("registration-form");
+            const newUsername = document.getElementById('UserName').value;
+            const newUserEmail = document.getElementById('UserEmail').value;
+            const newNumber = document.getElementById('Phone').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            if (!newUsername || !newPassword || !newUserEmail) {
+                alert("Please enter username, email, and password.");
+                registerForm.reset();
+                return;
+            }
+
+            const emailExistsInList = userLinkedList.findEmail(newUserEmail);
+            if (emailExistsInList) {
+                alert("Email Already Exists in List");
+                return;
+            } else {
+                const newUsers = {
+                    newUsername,
+                    newNumber,
+                    newPassword,
+                    newUserEmail
+                };
+                userLinkedList.append(newUsers);
+                // Save updated data to localStorage
+                localStorage.setItem('userList', JSON.stringify(userLinkedList.toJSON()));
+                alert("Registration successful. You can now login.");
+                registerForm.reset();
+            }
+        }
+    </script>
+</body>
+
+</html>

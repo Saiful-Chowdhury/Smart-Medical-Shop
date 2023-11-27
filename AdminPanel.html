@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Medicine Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        input,
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Medicine Inventory</h1>
+
+        <label for="medicineName">Medicine Name:</label>
+        <input type="text" id="medicineName"><br>
+
+        <label for="medicinePrice">Price:</label>
+        <input type="number" id="medicinePrice"><br>
+
+        <label for="medicineQuantity">Quantity:</label>
+        <input type="number" id="medicineQuantity"><br>
+
+        <button onclick="addMedicine()">Add Medicine</button>
+        <button onclick="deleteMedicine()">Delete Medicine</button>
+        <button onclick="searchMedicine()">Search Medicine</button>
+
+        <div id="inventory"></div>
+
+
+        <div class="container">
+            <h1>Welcome</h1>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <script src="AdminPanel.js">
+    </script>
+</body>
+
+</html>

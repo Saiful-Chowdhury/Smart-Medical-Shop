@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <!-- <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'> -->
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        .input-group {
+            width: 100%;
+            height: 80%;
+        }
+        
+        .form-box h1 {
+            font-size: 25px;
+            margin-bottom: 30px;
+            margin-left: 20%;
+            color: #3C91E6;
+            position: relative;
+        }
+        
+        .form-box h1::after {
+            content: '';
+            width: 60%;
+            height: 4px;
+            border-radius: 3px;
+            background: #3C91E6;
+            position: absolute;
+            bottom: -12px;
+            right: 8%;
+            transform: translateX(-50%);
+        }
+        
+        .input-field {
+            background: #eaeaee;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            max-height: 65px;
+            transition: max-height 0.5s;
+            overflow: hidden;
+        }
+        
+        input {
+            width: 100%;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            padding: 16px 12px;
+        }
+        
+        .addbtn {
+            /* flex-basis: 48%; */
+            background: #FD7238;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 30px;
+            border: 0;
+            outline: 0;
+            margin: 10px;
+            font-weight: 500;
+            margin-left: 20%;
+            cursor: pointer;
+            padding: 10px 60PX;
+            transition: background 1s;
+        }
+        
+        .popup {
+            width: 500px;
+            border-radius: 3px;
+            background: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translateX(-50%, -50%);
+            padding: 0px 30px 30px;
+            color: #333;
+            visibility: hidden;
+            transition: transfrom 0.4s;
+        }
+        
+        .open-popup {
+            visibility: visible;
+        }
+    </style>
+
+
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <span class="text">Admin Panel</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="#">
+                    <!-- <i class='bx bxs-dashboard'></i> -->
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="Stock.html">
+                    <!-- <i class='bx bxs-shopping-bag-alt'></i> -->
+                    <span class="text">Stocks</span>
+                </a>
+            </li>
+            <li>
+                <a href="Users.html">
+                    <!-- <i class='bx bxs-doughnut-chart'></i> -->
+                    <span class="text">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-message-dots'></i> -->
+                    <span class="text">Add Admin</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-group'></i> -->
+                    <span class="text">Delivered Items</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <!-- <i class='bx bxs-cog'></i> -->
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="LogIn1.html" class="logout">
+                    <!-- <i class='bx bxs-log-out-circle'></i> -->
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <!-- <i class='bx bx-menu'></i> -->
+            <!-- <a href="#" class="nav-link">Categories</a> -->
+            <form action="#">
+                <div class="form-input" id="UsermedicineName">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn" onclick="searchMedicine()"></button>
+                </div>
+            </form>
+            <!-- <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label> -->
+            <h3 id="Name"></h3>
+
+
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+
+                </div>
+
+            </div>
+
+            <ul class="box-info">
+                <li>
+                    <!-- <i class='bx bxs-calendar-check'></i> -->
+                    <span class="text" id="totalOrder">
+						<p>New Order</p>
+					</span>
+                </li>
+                <li>
+                    <!-- <i class='bx bxs-group'></i> -->
+                    <span class="text" id="totalSale">
+						<h3>2834</h3>
+						<p>Visitors</p>
+					</span>
+                </li>
+                <li>
+                    <!-- <i class='bx bxs-dollar-circle'></i> -->
+                    <span class="text">
+						<h3>2543/-</h3>
+						<p>Total Sales</p>
+					</span>
+                </li>
+            </ul>
+
+
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Recent Orders</h3>
+                        <!-- <i class='bx bx-search'></i> -->
+                        <!-- <i class='bx bx-filter'></i> -->
+                    </div>
+                    <table id="orderTable">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Name</th>
+                                <th>Medicine Name</th>
+                                <th>Quantity</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderBody">
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                <!-- Sell Medicine from Shop -->
+                <div class="todo">
+                    <div class="container">
+                        <div class="form-box">
+                            <form>
+                                <div class="input-group">
+                                    <h1>Sell Medicine</h1>
+                                    <div>
+                                        <!-- <label for="medicineName">Medicine Name:</label> -->
+                                        <input class="input-field" type="text" id="customerName" placeholder="Customer Name">
+                                    </div>
+                                    <div>
+                                        <!-- <label for="medicineName">Medicine Name:</label> -->
+                                        <input class="input-field" type="text" id="medicineName" placeholder="Medicine Name">
+                                    </div>
+
+                                    <div>
+                                        <!-- <label for="medicineQuantity">Quantity:</label> -->
+                                        <input class="input-field" type="number" id="medicineQuantity" placeholder="Quantity">
+                                    </div>
+                                    <button class="addbtn" onclick="sellMedicine()">Make Bill</button>
+
+                                    <!-- <button class="addbtn" onclick="deleteMedicine()">Delete Medicine</button>
+                                        <button class="addbtn" onclick="searchMedicine()">Search Medicine</button> -->
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="popup" id="Popup">
+                <div>
+                    <input class="input-field" type="number" id="userQuantity" placeholder="Quantity">
+                </div>
+                <button class="addbtn" onclick="closePopup()" type="submit">Print</button>
+            </div> -->
+        </main>
+        <!-- MAIN -->
+    </section>
+
+
+    <script src="AdminPanel.js"></script>
+
+</body>
+
+</html>
